@@ -24,7 +24,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session())
 
-mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true , useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://"+ process.env.MONGO_ID + ":"+ process.env.MONGO_PASS +"@labcolabs.xdmcu.mongodb.net/userDB?retryWrites=true&w=majority", {useNewUrlParser: true , useUnifiedTopology: true});
 mongoose.set('useCreateIndex', true);
 
 const userSchema = new Schema({
@@ -54,7 +54,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/auth/google/secrets'
+    callbackURL: 'http://lab-colabs-login.herokuapp.com//auth/google/secrets'
   },
   function(accessToken, refreshToken, profile, done) {
     app.set('id', profile.id);
@@ -158,6 +158,10 @@ app.route('/secrets')
         }
     });
 
-app.listen(3000, ()=>{
-    console.log("Server is listening on port 3000");
+let port = process.env.PORT;
+if( port == null || port == ""){
+  port = 3000;
+}
+app.listen(port, ()=>{
+    console.log("Server is listening on port " + port);
 })
