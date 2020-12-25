@@ -54,7 +54,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: 'http://lab-colabs-login.herokuapp.com//auth/google/secrets'
+    callbackURL: 'http://lab-colabs-login.herokuapp.com/auth/google/secrets'
   },
   function(accessToken, refreshToken, profile, done) {
     app.set('id', profile.id);
