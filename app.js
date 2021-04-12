@@ -1,7 +1,6 @@
 //jshint esversion:6
 require('dotenv').config();
 const express = require("express");
-const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
@@ -13,9 +12,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({
-    extended:true
-}));
+app.use(express.json());
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
@@ -24,7 +21,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session())
 
-mongoose.connect("mongodb+srv://"+ process.env.MONGO_ID +":"+ process.env.MONGO_PASS +"@users.xdmcu.mongodb.net/userDB?retryWrites=true&w=majority", {useNewUrlParser: true , useUnifiedTopology: true});
+mongoose.connect("mongodb://"+ process.env.MONGO_ID +":"+ process.env.MONGO_PASS +"@users-shard-00-00.xdmcu.mongodb.net:27017,users-shard-00-01.xdmcu.mongodb.net:27017,users-shard-00-02.xdmcu.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-2hcuz2-shard-0&authSource=admin&retryWrites=true&w=majority", {useNewUrlParser: true , useUnifiedTopology: true});
 mongoose.set('useCreateIndex', true);
 
 const userSchema = new Schema({
