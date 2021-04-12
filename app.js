@@ -24,7 +24,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session())
 
-mongoose.connect("mongodb+srv://"+ process.env.MONGO_ID +":"+ process.env.MONGO_PASS +"@users.xdmcu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {useNewUrlParser: true , useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://"+ process.env.MONGO_ID +":"+ process.env.MONGO_PASS +"@users.xdmcu.mongodb.net/userDB?retryWrites=true&w=majority", {useNewUrlParser: true , useUnifiedTopology: true});
 mongoose.set('useCreateIndex', true);
 
 const userSchema = new Schema({
